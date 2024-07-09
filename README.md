@@ -1,6 +1,6 @@
 # SoftUni JS Front-End 2024 Course Solutions
 
-![](https://geps.dev/progress/5,5)
+![](https://geps.dev/progress/5)
 
 
 
