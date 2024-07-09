@@ -1,2 +1,11 @@
-# SoftUni-JS-Front-End-June-2024
-Solutions to all lab and exercise problems from the SoftUni 2024 JS Front-End course
+# SoftUni JS Front-End 2024 Course Solutions
+
+
+
+
+
+## Description
+
+This repository will contain all the solutions for all the labs and exercises for the SoftUni JS Front-End 2024 course
+## Lab
+## Exercises
