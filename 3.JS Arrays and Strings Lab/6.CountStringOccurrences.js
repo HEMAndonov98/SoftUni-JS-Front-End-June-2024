@@ -8,3 +8,4 @@ function countOccurances(text, wordToSearch) {
 
 countOccurances('This is a word and it also is a sentence', 'is');
 countOccurances('softuni is great place for learning newprogramming languages', 'softuni');
+
