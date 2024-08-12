@@ -5,6 +5,25 @@ function solve() {
       const input = document.getElementsByTagName('textarea')[0].value;
       const restaurants = [];
 
+      // function to get workers from string as objects
+      const getWorkers = function (workerArgs) {
+         let result = [];
+
+         for (const singleWorker of workerArgs) {
+            // Worker arguments extracted from array arguments
+            const [workerName, workerSalary] = singleWorker.split(' ');
+
+            // Worker object creation
+            const newWorker = {
+               name: workerName,
+               salary: Number(workerSalary),
+            }
+            result.push(newWorker);
+         }
+         return result;
+      }
+      const getTotalSalary = (workers) => workers.reduce((acc, curr) => acc + curr.salary, 0);
+
       // Safe conversion array literal string into an array
       const pattern = /\".*?\"/g;
       const inputArr = input.match(pattern);
@@ -16,31 +35,24 @@ function solve() {
          const newRestaurantName = restaurantArgs[0];
          const newRestaurantWorkers = restaurantArgs[1].replace('\"', '').split(', ');
 
-         const newRestaurant = {
-            name: newRestaurantName,
-            workers: [],
-         }
-
-         for (const singleWorker of newRestaurantWorkers) {
-            // Worker arguments extracted from array arguments
-            const [workerName, workerSalary] = singleWorker.split(' ');
-
-            // Worker object creation
-            const newWorker = {
-               name: workerName,
-               salary: Number(workerSalary),
+         if (restaurants.hasOwnProperty(newRestaurantName)) {
+            restaurants[newRestaurantName].workers.push(...getWorkers(newRestaurantWorkers));
+         } else {
+            const newRestaurant = {
+               name: newRestaurantName,
+               workers: [],
             }
-
-            newRestaurant.workers.push(newWorker);
+            newRestaurant.workers.push(...getWorkers(newRestaurantWorkers));
+            // Adding restaurants as objects in array Assocative Array
+            restaurants[newRestaurantName] = newRestaurant;
          }
+
+
          // Calculate average salary and get the best salary in the workforce
-         const totalWorkerSalary = newRestaurant.workers.reduce((acc, curr) => acc + curr.salary, 0);
-         newRestaurant['averageSalary'] = (totalWorkerSalary / newRestaurant.workers.length);
+         const totalWorkerSalary = getTotalSalary(restaurants[newRestaurantName].workers);
+         restaurants[newRestaurantName]['averageSalary'] = (totalWorkerSalary / restaurants[newRestaurantName].workers.length);
 
-         newRestaurant["bestSalary"] = newRestaurant.workers.toSorted((a, b) => b.salary - a.salary)[0].salary;
-
-         // Adding restaurants as objects in array Assocative Array
-         restaurants[`${newRestaurantName}`] = newRestaurant;
+         restaurants[newRestaurantName]["bestSalary"] = restaurants[newRestaurantName].workers.toSorted((a, b) => b.salary - a.salary)[0].salary;
       }
 
       // get the best restaurant
