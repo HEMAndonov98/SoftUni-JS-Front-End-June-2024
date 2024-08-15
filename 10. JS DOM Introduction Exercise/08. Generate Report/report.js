@@ -3,34 +3,39 @@ function generateReport() {
     const tRowsElements = [...document.querySelectorAll('table>tbody>tr')];
 
     const getAttributeName = (tHeadEl) => tHeadEl.getElementsByTagName('input')[0].attributes.getNamedItem('name').value;
-    const isChecked = (tHeadEl) => tHeadEl.getElementsByTagName('input')[0].checked;
+    const isChecked = (tHeadEl) => tHeadEl.getElementsByTagName('input')[0].checked ? true : false;
     const createMapOfColsToTake = (tHeadElements) => {
-        tHeadElements.filter((el) => isChecked(el))
+        const tHeadFiltered = tHeadElements.filter((el) => isChecked(el))
             .map((el) => {
                 const attName = getAttributeName(el);
                 trTakeIndexes[`${attName}`] = tHeadElements.indexOf(el);
             });
     };
 
-    const resultObj = {};
+    function extractCheckedCells() {
+        for (const element of tRowsElements) {
+            const tdArray = [...element.getElementsByTagName('td')];
+            const resultObj = {};
+
+
+            Object.entries(trTakeIndexes).map(([key, value]) => {
+                resultObj[key] = tdArray[value].textContent;
+            })
+
+            resultArray.push(resultObj);
+        }
+    };
+
     const resultArray = [];
     const trTakeIndexes = {};
 
     createMapOfColsToTake(tHeadElements);
+    extractCheckedCells();
 
-    // iterate over every table row in the table body tRowsElements and take the textContent of the 
-    // tds from the trTakeIndexes map and construct an object resultObj which we will then
-    // add to resultArray before parsing it into JSON and adding to the result box
 
-    // example for later
-    for (const element of tRowsElements) {
-        const tdArray = [...element.getElementsByTagName('td')];
+    // Format the JSON
+    const resultJSON = JSON.stringify(resultArray, null, 1);
 
-        const vals = Object.values(trTakeIndexes);
-        for (const trTake of vals) {
-            console.log(tdArray[trTake].textContent);
-
-        }
-
-    }
+    const outputEl = document.getElementById('output');
+    outputEl.value = resultJSON;
 }
