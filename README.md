@@ -15,7 +15,7 @@ This repository will contain all the solutions for all the labs and exercises fo
 5. [JS Functions and Statements](https://github.com/HEMAndonov98/SoftUni-JS-Front-End-June-2024/tree/main/5.JS%20Functions%20and%20Statements%20Lab)
 6. [JS Functions and Statements Exercise](https://github.com/HEMAndonov98/SoftUni-JS-Front-End-June-2024/tree/main/6.JS%20Functions%20and%20Statements%20Exercises)
 7. [JS Objecs and Classes](https://github.com/HEMAndonov98/SoftUni-JS-Front-End-June-2024/tree/main/7.JS%20Objects%20and%20Classes%20Lab)
-8. [JS Objects and Classes Exercise](#)
+8. [JS Objects and Classes Exercise](https://www.joinplank.com/404)
 9. [JS DOM Introduction](https://github.com/HEMAndonov98/SoftUni-JS-Front-End-June-2024/tree/main/9.%20JS%20DOM%20Introduction%20Lab)
 10. [JS DOM Introduction Exercise](https://github.com/HEMAndonov98/SoftUni-JS-Front-End-June-2024/tree/main/10.%20JS%20DOM%20Introduction%20Exercise)
 11. [JS DOM Manipulation and Events](https://github.com/HEMAndonov98/SoftUni-JS-Front-End-June-2024/tree/main/11.%20JS%20DOM%20Manipulation%26Events%20Lab)
