@@ -1,20 +1,17 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function solve() {
 	const exerciseContainer = document.getElementById("exercise");
 	const tableBodyEl = document.querySelector("table>tbody");
 	const inputTextArea = document.querySelector("#exercise>textarea");
 
 	exerciseContainer.addEventListener("click", (e) => {
-		if (
-			e.target.tagName === "BUTTON" &&
-			e.target.innerHTML === "Generate"
-		) {
+		const [generateE, buyE] = e.currentTarget.querySelectorAll("button");
+
+		if (e.target === generateE) {
 			const data = JSON.parse(inputTextArea.value);
 			const furniture = generateFurniture(data);
 			furniture.forEach((e) => tableBodyEl.appendChild(e));
-		} else if (
-			e.target.tagName === "BUTTON" &&
-			e.target.innerHTML === "Buy"
-		) {
+		} else if (e.target === buyE) {
 			const checkedItems = getCheckedTableRows();
 			calculateTotal(checkedItems);
 		}
@@ -23,38 +20,28 @@ function solve() {
 	function generateFurniture(data) {
 		const furnitureTableElements = [];
 
-		for (const furnitureObj of data) {
-			const tableRow = document.createElement("tr");
+		const trEl = document.querySelector("tbody>tr");
 
-			const tdImg = document.createElement("td");
-			const furImage = document.createElement("img");
-			furImage.src = furnitureObj.img;
-			tdImg.appendChild(furImage);
+		data.forEach((furnitureE) => {
+			const trCloneE = trEl.cloneNode(true);
+			const cloneChildrenE = trCloneE.children;
 
-			const tdName = document.createElement("td");
-			const pName = document.createElement("p");
-			pName.textContent = furnitureObj.name;
-			tdName.appendChild(pName);
+			cloneChildrenE[0].innerHTML = cloneChildrenE[0].innerHTML.trim();
+			cloneChildrenE[1].innerHTML = cloneChildrenE[1].innerHTML.trim();
+			cloneChildrenE[2].innerHTML = cloneChildrenE[2].innerHTML.trim();
+			cloneChildrenE[3].innerHTML = cloneChildrenE[3].innerHTML.trim();
+			cloneChildrenE[4].innerHTML = cloneChildrenE[4].innerHTML.trim();
+						
 
-			const tdPrice = document.createElement("td");
-			const pPrice = document.createElement("p");
-			pPrice.textContent = furnitureObj.price;
-			tdPrice.appendChild(pPrice);
+			cloneChildrenE[0].firstElementChild.src = furnitureE.img;
+			cloneChildrenE[1].firstElementChild.textContent = furnitureE.name;
+			cloneChildrenE[2].firstElementChild.textContent = furnitureE.price;
+			cloneChildrenE[3].firstElementChild.textContent =
+				furnitureE.decFactor;
+			cloneChildrenE[4].firstElementChild.disabled = false;
 
-			const tdDecFactor = document.createElement("td");
-			const pDecFactor = document.createElement("p");
-			pDecFactor.textContent = furnitureObj.decFactor;
-			tdDecFactor.appendChild(pDecFactor);
-
-			const tdCheckbox = document.createElement("td");
-			const inputCheckbox = document.createElement("input");
-			inputCheckbox.type = "checkbox";
-			tdCheckbox.appendChild(inputCheckbox);
-
-			tableRow.append(tdImg, tdName, tdPrice, tdDecFactor, tdCheckbox);
-			furnitureTableElements.push(tableRow);
-		}
-
+			furnitureTableElements.push(trCloneE);
+		});
 		return furnitureTableElements;
 	}
 
@@ -93,12 +80,10 @@ function solve() {
 					);
 					return (acc += decFac);
 				}, 0) / tableRows.length;
+		
+			result.textContent = `Bought furniture: ${productNames.join(", ")}\nTotal price: ${totalPrice.toFixed(2)}\nAverage decoration factor: ${averageDec}`;
+		} else {
+			result.textContent = `Bought furniture:\nTotal price: ${totalPrice}\nAverage decoration factor: ${averageDec}`;
 		}
-
-		result.textContent = `Bought furniture: ${productNames.join(
-			", "
-		)}\nTotal price: ${totalPrice.toFixed(
-			2
-		)}\nAverage decoration factor: ${averageDec.toFixed(1)}`;
 	}
 }
